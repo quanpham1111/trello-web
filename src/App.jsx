@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button'
-import HomeIcon from '@mui/icons-material/AccessAlarm';
-import Stack from '@mui/material/Stack';
-import { pink } from '@mui/material/colors';
+import HomeIcon from '@mui/icons-material/AccessAlarm'
+import Stack from '@mui/material/Stack'
+import { pink } from '@mui/material/colors'
 function App() {
   return (
     <>
@@ -15,6 +15,7 @@ function App() {
         <HomeIcon color="secondary" />
         <HomeIcon color="success" />
         <HomeIcon color="action" />
+        <HomeIcon color="disabled" />
         <HomeIcon color="disabled" />
         <HomeIcon sx={{ color: pink[500] }} />
       </Stack>
