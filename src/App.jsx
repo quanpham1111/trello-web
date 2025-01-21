@@ -1,16 +1,13 @@
-import Button from '@mui/material/Button'
-import HomeIcon from '@mui/icons-material/AccessAlarm'
-import Stack from '@mui/material/Stack'
-import { pink } from '@mui/material/colors'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { useColorScheme } from '@mui/material/styles'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness'
+import { useColorScheme } from '@mui/material/styles'
 function ModeSelect() {
   const { mode, setMode } = useColorScheme()
   const handleChange = (event) => {
@@ -36,59 +33,52 @@ function ModeSelect() {
             </div>
           </MenuItem>
           <MenuItem value="dark">
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <DarkModeIcon fontSize='small' />Dark
-            </div>
+            </Box>
           </MenuItem>
           <MenuItem value="system">
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <SettingsBrightnessIcon fontSize='small' />System
-            </div>
+            </Box>
           </MenuItem>
         </Select>
       </FormControl>
     </div>
   )
 }
-function ModeToggle() {
-  const { mode, setMode } = useColorScheme()
-  //With this Hook: Getting system value with Light or Dark mode
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-  const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)')
-  console.log('prefersDarkMode', prefersDarkMode)
-  console.log('prefersLightMode', prefersLightMode)
-
-  return (
-    <Button
-      onClick={() => {
-        setMode(mode === 'light' ? 'dark' : 'light')
-      }}
-    >
-      {mode === 'light' ? 'Turn dark' : 'Turn light'}
-    </Button>
-  )
-}
 function App() {
   return (
-    <>
-      <ModeSelect />
-      <hr />
-      <ModeToggle />
-      <div>nguyenquan</div>
-      <Button variant="text">Text</Button>
-      <Button variant="contained" color='success'>Contained</Button>
-      <Button variant="outlined">Outlined</Button>
-      <Stack direction="row" spacing={3}>
-        <HomeIcon />
-        <HomeIcon color="primary" />
-        <HomeIcon color="secondary" />
-        <HomeIcon color="success" />
-        <HomeIcon color="action" />
-        <HomeIcon color="disabled" />
-        <HomeIcon color="disabled" />
-        <HomeIcon sx={{ color: pink[500] }} />
-      </Stack>
-    </>
+    <Container disableGutters maxWidth={false} sx={{ height: '100vh'}}>
+      <Box sx={{
+        backgroundColor: 'primary.light',
+        width: '100%',
+        height: (theme) => theme.trello.appBarHeight,
+        display: 'flex',
+        alignItems:'center'
+      }}>
+        <ModeSelect />
+      </Box>
+      <Box sx={{
+        backgroundColor: 'primary.dark',
+        width: '100%',
+        height: (theme) => theme.trello.boardBarHeight,
+        display: 'flex',
+        alignItems:'center'
+      }}
+      >
+        Board Bar
+      </Box>
+      <Box sx={{
+        backgroundColor: 'primary.main',
+        width:'100%',
+        height: (theme) => `calc( 100vh - ${theme.trello.appBarHeight} - ${theme.trello.boardBarHeight} )`,
+        display:'flex',
+        alignItems:'center'
+      }}>
+      Board Content
+      </Box>
+    </Container>
   )
 }
 
