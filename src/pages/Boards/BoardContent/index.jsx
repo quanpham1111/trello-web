@@ -1,4 +1,3 @@
-import React from 'react'
 import Box from '@mui/material/Box'
 function BoardContent() {
   return (
@@ -8,7 +7,7 @@ function BoardContent() {
       //Using String literal to call the variable from theme.js
       height: (theme) => `calc( 100vh - ${theme.trello.appBarHeight} - ${theme.trello.boardBarHeight} )`,
       display:'flex',
-      alignItems:'center'}}>
+      alignItems:'center' }}>
           Board Content
     </Box>)
 }
