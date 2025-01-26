@@ -30,7 +30,14 @@ function Profiles() {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          <Avatar sx={{
+            width: '34px',
+            height: '34px'
+          }}
+          src='https://p16-sign-sg.tiktokcdn.com/aweme/1080x1080/tos-alisg-avt-0068/28c4ef651842f2f840b6ecf66f607672.jpeg?lk3s=a5d48078&nonce=34895&refresh_token=e5fd70d655c070d582bb903cf7d76318&x-expires=1738083600&x-signature=5HvnC1sJql7gOD6DwO7LJbtrzvU%3D&shp=a5d48078&shcp=81f88b70s'
+          alt="Nguyen quan"
+          >
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Menu
