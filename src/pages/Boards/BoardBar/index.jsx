@@ -1,25 +1,25 @@
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import Box from '@mui/material/Box'
-import Chip from '@mui/material/Chip'
-import LockPersonIcon from '@mui/icons-material/LockPerson'
 import AddToDriveIcon from '@mui/icons-material/AddToDrive'
+import DashboardIcon from '@mui/icons-material/Dashboard'
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt'
 import FilterListIcon from '@mui/icons-material/FilterList'
+import LockPersonIcon from '@mui/icons-material/LockPerson'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
+import { Tooltip } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
-import { Tooltip } from '@mui/material'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import Chip from '@mui/material/Chip'
 function BoardBar() {
   //Custom Menu Blocks
   const Menu_Styled = {
-    color: 'primary.main',
-    bgcolor: 'white',
+    color: 'white',
+    bgcolor: 'transparent',
     boder:'none',
     paddingX: '5px',
     borderRadius: '5px',
-    '& .MuiSvgIcon-root':{
-      color: 'primary.main'
+    '.MuiSvgIcon-root':{
+      color: 'white'
     },
     '&:hover':{
       bgcolor: 'primary.50'
@@ -34,7 +34,8 @@ function BoardBar() {
       gap: 2,
       paddingX: 2,
       overflowX:'auto',
-      borderTop: '1px solid #1abc9c'
+      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2'),
+      borderBottom: '1px solid white'
     }}
     >
       <Box sx={{
@@ -83,14 +84,29 @@ function BoardBar() {
         alignItems:'center',
         gap: 2
       }}>
-        <Button variant="outlined" startIcon= {<PersonAddIcon />}>Invite</Button>
+        <Button
+          variant="outlined"
+          startIcon= {<PersonAddIcon />}
+          sx={{
+            color: 'white',
+            borderColor: 'white',
+            '&:hover':{
+              borderColor: 'white'
+            }
+          }}
+        >
+          Invite
+        </Button>
         <AvatarGroup
           max={5}
+          total={8}
           sx={{
+            gap: '10px',
             '& .MuiAvatar-root': {
               width: '34px',
               height: '34px',
-              fontSize: 16
+              fontSize: 16,
+              border: 'none'
             } }}
         >
           <Tooltip>

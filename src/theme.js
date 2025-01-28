@@ -1,4 +1,4 @@
-import { cyan, deepOrange, orange, teal } from '@mui/material/colors'
+//yarrn import { cyan, deepOrange, orange, teal } from '@mui/material/colors'
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
 
 // Create a theme instance.
@@ -13,14 +13,14 @@ const theme = extendTheme({
       styleOverrides: {
         '*::-webkit-scrollbar': {
           width:'8px',
-          height:'10px'
+          height:'6px'
         },
         '*::-webkit-scrollbar-thumb': {
-          backgroundColor: 'grey',
+          backgroundColor: '#dcdde1',
           borderRadius:'8px'
         },
         '*::-webkit-scrollbar-thumb:hover': {
-          backgroundColor : '#16a085'
+          backgroundColor : 'white'
         }
       }
     },
@@ -30,38 +30,42 @@ const theme = extendTheme({
         // Name of the slot
         root: {
           // Some CSS
-          textTransform: 'none'
+          textTransform: 'none',
+          borderWidth:'0.5px',
+          '&:hover': {
+            borderWidth:'2px'
+          }
         }
       }
     },
     MuiInputLabel: {
       styleOverrides: {
         // Name of the slot
-        root:({ theme }) => ( {
+        root:{
           // Some CSS
-          color: theme.palette.primary.main,
+          //color: theme.palette.primary.main,
           fontSize: '0.875rem'
-        })
+        }
       }
     },
     MuiOutlinedInput: {
       styleOverrides: {
         // Name of the slot
-        root: ({ theme }) => {
-          // Some CSS
-          return {
-            color: theme.palette.primary.main,
-            fontSize:'0.875rem',
-            '.MuiOutlinedInput-notchedOutline':{
-              borderColor: theme.palette.primary.light
-            }
-          }
+        root: {
+          fontSize:'0.875rem', //color: theme.palette.primary.main,
+          //'.MuiOutlinedInput-notchedOutline':{
+          // borderColor: theme.palette.primary.light
+          // }
+          '& fieldset': { borderWidth:'0.5px !important' },
+          '&:hover fieldset': { borderWidth:'2px !important' },
+          //giữ trạng thái tô đậm viền khi không hover
+          '&.Mui-focused fieldset': { borderWidth:'2px !important' }
         }
       }
     }
   },
   colorSchemes: {
-    light: {
+    /* light: {
       palette: {
         primary: teal,
         secondary: deepOrange
@@ -72,7 +76,7 @@ const theme = extendTheme({
         primary: cyan,
         secondary: orange
       }
-    }
+    }*/
   }
   // ...other properties
 })
