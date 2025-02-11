@@ -2,15 +2,16 @@ import AddToDriveIcon from '@mui/icons-material/AddToDrive'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt'
 import FilterListIcon from '@mui/icons-material/FilterList'
-import LockPersonIcon from '@mui/icons-material/LockPerson'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
+import VpnLockIcon from '@mui/icons-material/VpnLock'
 import { Tooltip } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Chip from '@mui/material/Chip'
-function BoardBar() {
+import { capitalizeFirstLetter } from '~/utils/formatters'
+function BoardBar({ board }) {
   //Custom Menu Blocks
   const Menu_Styled = {
     color: 'white',
@@ -46,14 +47,14 @@ function BoardBar() {
         <Chip
           sx={Menu_Styled}
           icon={<DashboardIcon />}
-          label="Nguyen Quan"
+          label={board?.title}
           onClick = {() => {}}
         />
         {/* Private Block */}
         <Chip
           sx={Menu_Styled}
-          icon={<LockPersonIcon />}
-          label="Public Private Workspaces"
+          icon={<VpnLockIcon />}
+          label={capitalizeFirstLetter(board?.type)}
           onClick = {() => {}}
         />
         {/* Add to Drive Block */}
