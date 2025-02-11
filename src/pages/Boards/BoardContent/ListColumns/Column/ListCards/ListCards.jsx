@@ -2,7 +2,7 @@
 import Card from './Card/Card'
 import Box from '@mui/material/Box'
 
-function ListCards() {
+function ListCards({ cards }) {
   return (
     <Box sx={{
       //padding và margin cho thanh scroll bar và nội dung
@@ -32,8 +32,7 @@ function ListCards() {
       }
     }}>
       {/* Card 1 */}
-      <Card />
-      <Card temporaryHideMedia />
+      {cards?.map( card => <Card key={card._id} card ={card}/> )}
     </Box> )
 }
 
