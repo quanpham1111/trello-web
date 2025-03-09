@@ -113,7 +113,7 @@ function BoardBar({ board }) {
             } }}
         >
           <Tooltip>
-            <Avatar alt="Remy Sharp" src='https://p16-sign-sg.tiktokcdn.com/aweme/1080x1080/tos-alisg-avt-0068/28c4ef651842f2f840b6ecf66f607672.jpeg?lk3s=a5d48078&nonce=34895&refresh_token=e5fd70d655c070d582bb903cf7d76318&x-expires=1738083600&x-signature=5HvnC1sJql7gOD6DwO7LJbtrzvU%3D&shp=a5d48078&shcp=81f88b70s' />
+            <Avatar alt="Remy Sharp" src='https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.6435-9/161493629_2916914605221175_6977347449840896729_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeHbELpLG212SPq_Azz7JwOzK0n8ylyr20krSfzKXKvbSZcj8cjLPdNBCsbiFGkYcA5gpr8QKr3xZJ2ZklE1dZiD&_nc_ohc=QrPB40eyBn4Q7kNvgGoWKap&_nc_oc=AdigArDR_uctGgLo8aleW4SA1zdCDtCm9xcs-VVAyAUJU0pL2ogqwhvUqJBvZii1-KA&_nc_zt=23&_nc_ht=scontent.fsgn2-3.fna&_nc_gid=AiBNUu7MOmF7I_lUXzK1p_f&oh=00_AYA77yROs_VNYQzUDYEXaT8weoen8bWasHB4kwnbAUNP9w&oe=67EFEFAA' />
           </Tooltip>
           <Tooltip>
             <Avatar alt="Remy Sharp" src='https://kenh14cdn.com/203336854389633024/2024/9/26/img2240-1727338462507599549809-1727350509184-17273505093931611744024.jpg' />
