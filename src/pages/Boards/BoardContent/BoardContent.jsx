@@ -9,7 +9,8 @@ import {
   useSensor,
   useSensors,
   DragOverlay,
-  defaultDropAnimationSideEffects
+  defaultDropAnimationSideEffects,
+  closestCorners
 } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 import { useEffect, useState } from 'react'
@@ -84,7 +85,7 @@ function BoardContent({ board }) {
         //logic tính toán "cardIndex mới" từ thư viện dndkit, để tính toán xem thử (cardindex đang nằm trên hay dưới) qua vị trí của Rect
         //Quá đau đầu- nhiều khi muốn từ chối hiểu =
         let newCardIndex
-        const isBelowOverItem = active.rect.current.translated && active.rect.current.translated.top > over.rect.top + over.rect.height;
+        const isBelowOverItem = active.rect.current.translated && active.rect.current.translated.top > over.rect.top + over.rect.height
         const modifier = isBelowOverItem ? 1 : 0
         newCardIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn.length + 1
 
@@ -113,7 +114,7 @@ function BoardContent({ board }) {
           nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
         }
 
-        console.log('nextColumn', nextColumns);
+        console.log('nextColumn', nextColumns )
         return nextColumns
       })
     }
@@ -163,10 +164,14 @@ function BoardContent({ board }) {
   return (
     //Hành động kéo thả
     <DndContext
+      sensors={sensors}
+      //thuật toán phát hiện va chạm( nếu không có nó thì card với cover lớn
+      // sẽ không kéo qua column khác được do bị conflict giữa card và column),
+      // chúng ta se dụng closercorners thay vì closercenter
+      collisionDetection={closestCorners}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
-      onDragEnd = {handleDragEnd}
-      sensors={sensors}>
+      onDragEnd = {handleDragEnd}>
       <Box sx={{
         bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2'),
         width:'100%',
