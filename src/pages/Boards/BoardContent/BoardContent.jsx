@@ -153,7 +153,7 @@ function BoardContent({ board }) {
         //lấy vị trí cũ (từ oldColumnWhenDraggingCard)
         const oldCardIndex = oldColumnWhenDraggingCard?.cards?.findIndex(c => c._id === activeDragItemId)
         //lấy vị trí mới (từ over)
-        const newCardIndex = overColumn?.cards?.findIndex(c => c._id === overCardId.id)
+        const newCardIndex = overColumn?.cards?.findIndex(c => c._id === overCardId)
 
         const dndOrderedCards = arrayMove (oldColumnWhenDraggingCard?.cards, oldCardIndex, newCardIndex)
         console.log('dndOderedCards', dndOrderedCards)
