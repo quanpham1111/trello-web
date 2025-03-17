@@ -34,8 +34,8 @@ function Card({ card }) {
         ursor:'pointer',
         boxShadow: '0 1px 1px rgba(0, 0, 0, 2)',
         //tắt overflow đi để hiện thanh scroll bar
-        overflow:'unset'
-      }}>
+        overflow: card?.FE_PlaceholderCard ? 'hidden' : 'unset',
+        height: card?.FE_PlaceholderCard ? '0px' : 'unset'      }}>
       {card?.cover &&
       <CardMedia
         sx={{ height: 140 }}
