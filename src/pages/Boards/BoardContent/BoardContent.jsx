@@ -20,7 +20,8 @@ import { arrayMove } from '@dnd-kit/sortable'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
+import { generatePlaceholderCard } from '~/utils/formatters'
 const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
@@ -81,6 +82,12 @@ function BoardContent({ board }) {
       if (nextActiveColumn) {
         //xóa card ở cái column active (có thể hiểu là là column cũ, cái lúc mà kéo card ra khỏi nó để sang column khác)
         nextActiveColumn.cards = nextActiveColumn.cards.filter(card => card._id !== activeDraggingCardId)
+
+        //thêm placeholder card nếu column rỗng: bị kéo đi hết
+        if (isEmpty(nextActiveColumn.cards)) {
+          nextActiveColumn.cards = [generatePlaceholderCard(nextActiveColumn)]
+        }
+
         //cập nhật lại mảng cardOrderIds để chuẩn dữ liệu
         nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(card => card._id)
       }
@@ -96,6 +103,9 @@ function BoardContent({ board }) {
         }
         //Tiếp theo là thêm card đang kéo vào overColumn theo vị trí index mới
         nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, rebuilt_activeDraggingCardData)
+
+        //xóa placeholder card đi nếu card mới được kéo vào
+        nextOverColumn.cards = nextOverColumn.cards.filter(card => !card.FE_PlaceholderCard)
 
         //cập nhật lại mảng cardOrderIds để chuẩn dữ liệu
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
@@ -179,7 +189,7 @@ function BoardContent({ board }) {
       if (!activeColumn || !overColumn ) return
       //Hành động kéo thả card giữa 2 column khác nhau
       if (oldColumnWhenDraggingCard._id !== overColumn._id) {
-        //gọi function chung kéo thả card 
+        //gọi function chung kéo thả card
         moveCardBetweenDifferentColumns(
           overColumn,
           overCardId,
