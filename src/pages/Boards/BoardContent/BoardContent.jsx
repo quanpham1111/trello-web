@@ -11,7 +11,7 @@ import {
   DragOverlay,
   defaultDropAnimationSideEffects,
   closestCorners,
-  closestCenter,
+  //closestCenter,
   pointerWithin,
   rectIntersection,
   getFirstCollision
@@ -263,11 +263,16 @@ function BoardContent({ board }) {
 
     //Tìm các điểm giao nhau va chạm với con trỏ
     const poiterIntersections = pointerWithin(args)
-    const intersections = !!poiterIntersections?.length
-      ? poiterIntersections
-      : rectIntersection(args)
 
-    let overId = getFirstCollision(intersections, 'id')
+    //fix triệt để trường(flickering) hợp kéo image cover lớn lên trên cùng ra khỏi khu vực kéo thả
+    if (!poiterIntersections?.length) return
+
+    //thuật toán phát hiện va chamj sẽ trả về 1 mảng các va chạm ở đây
+    //const intersections = !!poiterIntersections?.length
+    //? poiterIntersections
+    //: rectIntersection(args)
+
+    let overId = getFirstCollision(poiterIntersections, 'id')
     // console.log('overId:', overId)
 
     if (overId) {
@@ -276,8 +281,8 @@ function BoardContent({ board }) {
 
       const checkColumn = orderedColumns.find(column => column._id === overId)
       if (checkColumn) {
-        
-        overId = closestCenter({
+
+        overId = closestCorners({
           ...args,
           droppableContainers : args.droppableContainers.filter(container => {
             return (container.id !== overId) && (checkColumn?.cardOrderIds?.includes(container.id))
