@@ -36,7 +36,7 @@ function Card({ card }) {
         //tắt overflow đi để hiện thanh scroll bar
         overflow: card?.FE_PlaceholderCard ? 'hidden' : 'unset',
         height: card?.FE_PlaceholderCard ? '0px' : 'unset',
-        border: '1px solid transparent',
+        border: '0px solid transparent',
         '&:hover': { borderColor: (theme) => theme.palette.primary.main }
       }}>
       {card?.cover &&
