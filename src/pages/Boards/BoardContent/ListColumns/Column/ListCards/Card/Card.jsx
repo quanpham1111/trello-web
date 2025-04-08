@@ -31,11 +31,14 @@ function Card({ card }) {
     <MuiCard
       ref={setNodeRef} style={dndKitCardStyles} {...attributes} {...listeners}
       sx={{
-        ursor:'pointer',
+        cursor:'pointer',
         boxShadow: '0 1px 1px rgba(0, 0, 0, 2)',
         //tắt overflow đi để hiện thanh scroll bar
         overflow: card?.FE_PlaceholderCard ? 'hidden' : 'unset',
-        height: card?.FE_PlaceholderCard ? '0px' : 'unset'      }}>
+        height: card?.FE_PlaceholderCard ? '0px' : 'unset',
+        border: '1px solid transparent',
+        '&:hover': { borderColor: (theme) => theme.palette.primary.main }
+      }}>
       {card?.cover &&
       <CardMedia
         sx={{ height: 140 }}

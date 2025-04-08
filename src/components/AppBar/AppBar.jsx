@@ -92,14 +92,16 @@ function AppBar() {
             ),
             //dấu X để xóa ký tự trong Text Field
             endAdornment: (
-              <CloseIcon
-                fontSize="small"
-                sx={{
-                  color: searchValue ? 'white' :'transparent',
-                  cursor: 'pointer'
-                }}
-                onClick={() => setSearchValue('')}
-              />
+              <InputAdornment position= "end">
+                <CloseIcon
+                  fontSize="small"
+                  sx={{
+                    color: searchValue ? 'white' :'transparent',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => setSearchValue('')}
+                />
+              </InputAdornment>
             )
           }
           }
