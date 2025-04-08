@@ -44,12 +44,14 @@ function BoardBar({ board }) {
         gap: 2
       }}>
         {/* Dashboard Block */}
-        <Chip
-          sx={Menu_Styled}
-          icon={<DashboardIcon />}
-          label={board?.title}
-          onClick = {() => {}}
-        />
+        <Tooltip title={board?.description} >
+          <Chip
+            sx={Menu_Styled}
+            icon={<DashboardIcon />}
+            label={board?.title}
+            onClick = {() => {}}
+          />
+        </Tooltip>
         {/* Private Block */}
         <Chip
           sx={Menu_Styled}
