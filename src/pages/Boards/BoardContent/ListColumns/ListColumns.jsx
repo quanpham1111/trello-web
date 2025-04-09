@@ -5,6 +5,7 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import TextField from '@mui/material/TextField'
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
 import { useState } from 'react'
+import {toast} from 'react-toastify'
 import CloseIcon from '@mui/icons-material/Close'
 function ListColumns({ columns }) {
   const [openNewColumnForm , setOpenNewColumnForm] = useState(false)
@@ -13,7 +14,7 @@ function ListColumns({ columns }) {
   const [newColumnTitle,setNewColumnTitle] = useState('')
   const addNewColumn = () => {
     if (!newColumnTitle) {
-      //console.error('please enter column Tite')
+      toast.error('Please enter column Title!')
       return
     }
     //console.log(newColumnTitle)

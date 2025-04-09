@@ -8,6 +8,7 @@ import DragHandleIcon from '@mui/icons-material/DragHandle'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Button, Tooltip } from '@mui/material'
 import Box from '@mui/material/Box'
+import {toast, ToastContainer} from 'react-toastify'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Menu from '@mui/material/Menu'
@@ -52,7 +53,7 @@ function Column({ column }) {
   const [newCardTitle, setNewCardTitle] = useState('')
   const addNewCard = () => {
     if (!newCardTitle) {
-      //console.error('please enter column Tite')
+      toast.error('Please enter card Title!', { position: 'bottom-right'})
       return
     }
     //console.log(newColumnTitle)
@@ -144,7 +145,7 @@ function Column({ column }) {
         {/* Box Column Footer */}
         <Box sx={{
           height: (theme) => theme.trello.columnFooterHeight,
-          p:2,
+          p:2
         }}>
           {!openNewCardForm
             ? <Box sx={{
