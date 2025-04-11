@@ -5,21 +5,24 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import TextField from '@mui/material/TextField'
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
 import { useState } from 'react'
-import {toast} from 'react-toastify'
 import CloseIcon from '@mui/icons-material/Close'
-function ListColumns({ columns }) {
-  const [openNewColumnForm , setOpenNewColumnForm] = useState(false)
+import { toast } from 'react-toastify'
+function ListColumns({ columns, createNewColumn,createNewCard }) {
+  const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toggleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
-  const [newColumnTitle,setNewColumnTitle] = useState('')
+  const [newColumnTitle, setNewColumnTitle] = useState('')
   const addNewColumn = () => {
     if (!newColumnTitle) {
-      toast.error('Please enter column Title!')
+      toast.error('please enter column Tite')
       return
     }
-    //console.log(newColumnTitle)
+    //tạo dữ liệu Column để gọi Api
     // Gọi Api ở đây
-
+    const newColumnData = {
+      title: newColumnTitle
+    }
+    createNewColumn(newColumnData)
     //Đóng lại trạng thái thêm Column mới & clear input
     toggleOpenNewColumnForm()
     setNewColumnTitle('')
@@ -38,7 +41,7 @@ function ListColumns({ columns }) {
         }
       }}>
         {/*Column */}
-        {columns?.map(column => <Column key={column._id} column={column} /> )}
+        {columns?.map(column => <Column key={column._id} column={column} createNewCard={createNewCard}/> )}
         {!openNewColumnForm
           ? <Box onClick={toggleOpenNewColumnForm} sx={{
             minWidth: '250px',

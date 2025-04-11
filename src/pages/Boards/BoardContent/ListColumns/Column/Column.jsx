@@ -23,7 +23,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { useState } from 'react'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
-function Column({ column }) {
+function Column({ column, createNewCard }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column }
@@ -57,8 +57,13 @@ function Column({ column }) {
       return
     }
     //console.log(newColumnTitle)
+    //tạo dữ liệu Column để gọi Api
     // Gọi Api ở đây
-
+    const newCardData = {
+      title: newCardTitle,
+      columnId: column._id
+    }
+    createNewCard(newCardData)
     //Đóng lại trạng thái thêm Column mới & clear input
     toggleOpenNewCardForm()
     setNewCardTitle('')
