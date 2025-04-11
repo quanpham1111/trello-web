@@ -27,7 +27,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
-function BoardContent({ board }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns, moveCardIntheSameColumn }) {
   const pointerSensor = useSensor(PointerSensor, { activationConstraint: { distance: 10 } })
   //Yêu cầu chuột di chuyển 10px mới kích hoạt event
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } })
@@ -206,10 +206,12 @@ function BoardContent({ board }) {
 
         //lấy vị trí cũ (từ oldColumnWhenDraggingCard)
         const oldCardIndex = oldColumnWhenDraggingCard?.cards?.findIndex(c => c._id === activeDragItemId)
+        console.log('old card index', oldCardIndex);
         //lấy vị trí mới (từ over)
         const newCardIndex = overColumn?.cards?.findIndex(c => c._id === overCardId)
-
+        console.log('new card index', newCardIndex);
         const dndOrderedCards = arrayMove (oldColumnWhenDraggingCard?.cards, oldCardIndex, newCardIndex)
+        const dndOrderedCardIds = dndOrderedCards.map(card => card._id)
         console.log('dndOderedCards', dndOrderedCards)
         setOrderedColumns(prevColumns => {
         //clone mảng OrderedColumnsState cũ ra một cái mới để xử lý data rồi return để cập nhật lại orderedColumnsState mới
@@ -220,12 +222,13 @@ function BoardContent({ board }) {
 
           //cập nhật lại 2 giá trị mới là card và cardOrderIds trong targetColumn
           targetColumn.cards = dndOrderedCards
-          targetColumn.cardOrderIds = dndOrderedCards.map(card => card._id)
+          targetColumn.cardOrderIds = dndOrderedCardIds
 
           //trả về vịt trí mới chuẩn vị trí
           return nextColumns
         })
 
+        moveCardIntheSameColumn(dndOrderedCards, dndOrderedCardIds, oldColumnWhenDraggingCard._id)
       }
     }
 
@@ -246,6 +249,8 @@ function BoardContent({ board }) {
 
         //Cập nhật lai State
         setOrderedColumns(dndOrderedColumns)
+        //gọi props function
+        moveColumns(dndOrderedColumns)
       }
     }
     //khi thả drag ra sẽ trả về null để giữ chỗ khi thêm data mới vào
@@ -329,7 +334,11 @@ function BoardContent({ board }) {
         height: (theme) => theme.trello.boardContentHeight,
         p:'10px 0'
       }}>
-        <ListColumns columns={orderedColumns}/>
+        <ListColumns
+          columns={orderedColumns}
+          createNewColumn= {createNewColumn}
+          createNewCard= {createNewCard}
+        />
         <DragOverlay dropAnimation={customdropAnimation}>
           {(!activeDragItemType) && null}
           {/* Phần giữ chỗ khi kéo sẽ xuất hiện Column mờ*/}
