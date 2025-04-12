@@ -27,7 +27,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
-function BoardContent({ board, createNewColumn, createNewCard, moveColumns, moveCardIntheSameColumn }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns, moveCardIntheSameColumn, moveCardToDifferentColumn }) {
   const pointerSensor = useSensor(PointerSensor, { activationConstraint: { distance: 10 } })
   //Yêu cầu chuột di chuyển 10px mới kích hoạt event
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } })
@@ -62,7 +62,8 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
     over,
     activeColumn,
     activeDraggingCardId,
-    activeDraggingCardData
+    activeDraggingCardData,
+    triggerFrom
   ) => {
     setOrderedColumns(prevColumns => {
       const overCardIndex = overColumn?.cards?.findIndex( card => card._id === overCardId)
@@ -113,6 +114,15 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
       }
 
       console.log('nextColumn', nextColumns )
+      //Nếu function này được gọi từ handleDragEnd thì nghĩa là đã kéo thả xong, lúc này xử lý gọi Api 1 lần
+      if (triggerFrom === 'handleDragEnd') {
+        moveCardToDifferentColumn(
+          activeDraggingCardId,
+          oldColumnWhenDraggingCard._id,
+          nextOverColumn._id,
+          nextColumns
+        )
+      }
       return nextColumns
     })
   }
@@ -163,7 +173,8 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
         over,
         activeColumn,
         activeDraggingCardId,
-        activeDraggingCardData
+        activeDraggingCardData,
+        'handleDragOver'
       )
     }
   }
@@ -199,7 +210,8 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
           activeColumn,
           activeDraggingCardId,
           activeDraggingCardData,
-          getFirstCollision
+          getFirstCollision,
+          'handleDragEnd'
         )
       } else {
         //Hành động kéo thả card trong cùng 1 cái column

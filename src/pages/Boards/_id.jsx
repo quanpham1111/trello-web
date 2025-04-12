@@ -4,14 +4,13 @@ import BoardBar from './BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 import { mockData } from '~/apis/mock-data'
 import { useEffect, useState } from 'react'
-import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI, updateBoardDetailsAPI, updateColumnDetailsAPI } from '~/apis'
+import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI, updateBoardDetailsAPI, updateColumnDetailsAPI, moveCardToDifferentColumnAPI } from '~/apis'
 import {generatePlaceholderCard} from '~/utils/formatters'
 import { isEmpty } from 'lodash'
 import Box from '@mui/material/Box'
 import { mapOrder } from '~/utils/sorts'
 import CircularProgress from '@mui/material/CircularProgress';
 import { Typography } from '@mui/material'
-
 function Board() {
   const [board, setBoard] = useState(null)
 
@@ -99,6 +98,30 @@ function Board() {
     //Gọi API update Column
     updateColumnDetailsAPI(columnId, { cardOrderIds: dndOrderedCardIds })
   }
+
+  const moveCardToDifferentColumn = (currentCardId, prevColumnId, nextColumnId, dndOrderedColumns ) => {
+    console.log('currentCardId',currentCardId)
+    console.log('prevColumnId',prevColumnId);
+    console.log('nextColumnId',nextColumnId);
+    console.log('dndOrderedColumns',dndOrderedColumns);
+
+    //update chuẩn dữ liệu state board
+    const dndOrderedColumnsIds = dndOrderedColumns.map(c => c._id)
+
+    const newBoard = { ...board }
+    newBoard.columns = dndOrderedColumns
+    newBoard.columnOrderIds = dndOrderedColumnsIds
+    setBoard(newBoard)
+
+    //Gọi API xử lý bacnkend
+    moveCardToDifferentColumnAPI({
+      currentCardId,
+      prevColumnId,
+      prevCardOrderIds: dndOrderedColumns.find(c => c._id === prevColumnId)?.cardOrderIds,
+      nextColumnId,
+      nextCardOrderIds: dndOrderedColumns.find(c => c._id === nextColumnId)?.cardOrderIds
+    })
+  }
   if (!board) {
     return (
       <Box sx={{
@@ -124,6 +147,7 @@ function Board() {
         createNewCard = {createNewCard}
         moveColumns= {moveColumns}
         moveCardIntheSameColumn={moveCardIntheSameColumn}
+        moveCardToDifferentColumn= {moveCardToDifferentColumn}
       />
     </Container>
   )
